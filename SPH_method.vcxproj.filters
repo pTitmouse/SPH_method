@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{c077dd88-c17a-4c93-a3d8-ef53a6849799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{31c45091-4cb4-434b-9ea6-53b365788dfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hdr">
+      <UniqueIdentifier>{103c0b47-2158-4293-95ac-c8c900adf4c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="model.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="Vmath.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="SPH.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="model.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="Vmath.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+    <ClInclude Include="SPH.h">
+      <Filter>hdr</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="kernel.cu">
+      <Filter>src</Filter>
+    </CudaCompile>
+  </ItemGroup>
+</Project>
