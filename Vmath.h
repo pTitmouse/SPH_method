@@ -1,8 +1,9 @@
 #pragma once
-
 #include <iostream>
 #include <vector>
 #include<cmath>
+
+#include "SPH.h"
 
 
 class vec3

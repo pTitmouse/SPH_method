@@ -13,6 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{21EEDC0F-81A3-4425-9215-FF8E05157D28}</ProjectGuid>
     <RootNamespace>SPH_method</RootNamespace>
+    <ProjectName>SPH_method</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
