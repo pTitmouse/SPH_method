@@ -3,7 +3,7 @@
 
 Particle::Particle()
 {
-	set_prop(EARTH_MASS, EARTH_RAD);
+	set_prop(1, 1);
 	pos.set(0, 0, 0);
 	vel.set(0, 0, 0);
 	ax.set(0, 0, 0);
@@ -53,43 +53,72 @@ void Particle::set_ax(vec3 other)
 }
 
 
-void time(std::vector<Particle>& particle, double dt)
-{
-	vec3 F(0, 0, 0);
-	for (size_t i = 0; i < particle.size(); ++i)
-	{
-		//Computing total force
-		/*
-		for (size_t j = 0; j < particle.size(); ++j)
-			if (i != j) F = F + Force(particle[i], particle[j]);
-		*/
-		particle[i].ax = ax(particle);
-		particle[i].vel = particle[i].vel + particle[i].ax * dt;
-		particle[i].pos = particle[i].pos + particle[i].vel * dt;
-
-		F.set(0, 0, 0);
-	}
-}
-
-vec3 ax(std::vector<Particle>& particle)
+vec3 ax(size_t, std::vector<Particle>&, Kernel&)
 {
 	return 0;
 }
 
-double dens(vec3 r, double h, std::vector<Particle>& particle, Kernel& kernel)
+double dens(size_t n, std::vector<Particle>& particle, Kernel& kernel)
 {
 	double dens = 0;
 	for (Particle& p : particle)
-		dens += p.get_mass()* kernel.W(r, p.pos, h);
+		dens += p.get_mass()* kernel.W(particle[n].pos, p.pos, particle[n].h);
 
 	return dens;
 }
 
-double h_value(size_t n, std::vector<Particle>& particle, Kernel& kernel)
+void adapt_h(size_t n, double dt, std::vector<Particle>& particle, Kernel& kernel)
 {
-	double h0 = 1;
-	double dens0 = 1;
+	particle[n].h = particle[n].h * (1 + divVel(n, particle, kernel)/kernel.D);
+}
 
-	return 1;
+double divVel(size_t n, std::vector<Particle>& particle, Kernel& kernel)
+{
+	double divV = 0;
+	for (Particle& p : particle)
+		divV += (p.vel - particle[n].vel) * 
+				kernel.gradW(particle[n].pos, p.pos, particle[n].h) * 
+				p.get_mass();
 
+	return divV / dens(n, particle, kernel);
+
+}
+
+vec3 rotVel(size_t n, double dt, std::vector<Particle>& particle, Kernel& kernel)
+{
+	vec3 rotV = 0;
+	for (Particle& p : particle)
+		rotV += (p.vel - particle[n].vel) /
+		kernel.gradW(particle[n].pos, p.pos, particle[n].h) *
+		p.get_mass();
+
+	return rotV / dens(n, particle, kernel);
+}
+
+
+
+void eiler_scheme(std::vector<Particle>& particle, Kernel& kernel, double dt, size_t iteration)
+{
+	size_t n = 0;
+	for (Particle& p : particle)
+	{	
+		p.ax = ax(n, particle, kernel);
+		p.vel += p.ax * dt;
+		p.pos += p.vel * dt;
+
+		++n;
+	}
+}
+
+void advanced_scheme(std::vector<Particle>& particle, Kernel& kernel, double dt, size_t iteration)
+{
+	size_t n = 0;
+	for (Particle& p : particle)
+	{
+		p.ax = ax(n, particle, kernel);
+		p.vel += p.ax * dt;
+		p.pos += p.vel * dt;
+
+		++n;
+	}
 }

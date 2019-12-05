@@ -21,6 +21,9 @@
     <ClCompile Include="SPH.cpp">
       <Filter>res</Filter>
     </ClCompile>
+    <ClCompile Include="solutions.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="model.h">
@@ -34,7 +37,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CudaCompile Include="kernel.cu">
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <CudaCompile Include="kernel.cpp">
       <Filter>src</Filter>
     </CudaCompile>
   </ItemGroup>

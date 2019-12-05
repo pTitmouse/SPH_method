@@ -3,7 +3,6 @@
 #include <vector>
 #include<cmath>
 
-#include "SPH.h"
 
 
 class vec3
@@ -16,10 +15,12 @@ public:
 	vec3(double*);
 
 	vec3 operator+ (vec3);
+	vec3 operator+=(vec3&);
 	vec3 operator- (vec3);
 	vec3 operator* (double);
 	vec3 operator/ (double);
 	double operator* (vec3);
+	vec3 operator/(vec3); //vector multiplication
 	vec3& operator= (const vec3&);
 	vec3 operator= (double*); //!!!
 	

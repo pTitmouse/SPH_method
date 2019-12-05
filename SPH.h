@@ -2,6 +2,7 @@
 
 #include "Vmath.h"
 
+
 class Kernel
 {
 public:

@@ -1,10 +1,9 @@
 #pragma once
 #pragma once
 #include "Vmath.h"
+#include "SPH.h"
 
-const double EARTH_MASS = 5.97e24;
-const double EARTH_RAD = 6.4e6;
-const double G = 6.7e-11;
+
 
 
 class Particle
@@ -35,14 +34,27 @@ public:
 
 	void set_ax(double, double, double);
 	void set_ax(vec3);
+
 };
 
-vec3 ax(std::vector<Particle>&); // dv/dt
+void eiler_scheme(std::vector<Particle>&, Kernel&, double, size_t);
+void advanced_scheme(std::vector<Particle>&, Kernel&, double, size_t);
+
+// particle's axeleration, dv/dt 
+vec3 ax(size_t, std::vector<Particle>&, Kernel&);
 double energy(std::vector<Particle>&); 
-void time(std::vector<Particle>&, double);
 
-double dens(vec3, double, std::vector<Particle>&, Kernel&); //density
-double pres(vec3, double, std::vector<Particle>&, Kernel&); //pressure
-double gamma(vec3, double, std::vector<Particle>&, Kernel&); //adiabatic exponent
 
-double adapt_h(size_t, std::vector<Particle>&, Kernel&); //adaptive smooth radius
+//density of smooth particle (particle number, vector with particles, kernel)
+double dens(size_t, std::vector<Particle>&, Kernel&);
+//pressure (-||-)
+double pres(size_t, double, std::vector<Particle>&, Kernel&); 
+//adiabatic exponent (-||-)
+double gamma(size_t, double, std::vector<Particle>&, Kernel&); 
+//adaptive smooth radius  (-||-)
+void adapt_h(size_t, double, std::vector<Particle>&, Kernel&); 
+
+
+//rotor and divergence of velocity's field (-||-)
+double  divVel(size_t, std::vector<Particle>&, Kernel&);
+vec3	rotVel(size_t, std::vector<Particle>&, Kernel&);
