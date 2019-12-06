@@ -3,10 +3,11 @@
 Kernel::Kernel(size_t D_)
 {
 	D = D_;
+	
 	if (D == 1) C = 0.6667; // = 2/3
 	else if (D == 2) C = 0.4547; // = 10/(7pi)
 	else if (D == 3) C = 0.3183; // = 1/pi
-
+	
 }
 
 double h_value()

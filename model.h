@@ -19,7 +19,7 @@ public:
 	vec3 vel; //Velosity vector
 	vec3 ax; //Axeleration vector
 
-	double h; //Smooth radius
+	double h = 10; //Smooth radius
 	
 	double get_mass();
 	double get_rad();
@@ -40,6 +40,8 @@ public:
 void eiler_scheme(std::vector<Particle>&, Kernel&, double, size_t);
 void advanced_scheme(std::vector<Particle>&, Kernel&, double, size_t);
 
+bool neighbour(Particle&, Particle&);
+
 // particle's axeleration, dv/dt 
 vec3 ax(size_t, std::vector<Particle>&, Kernel&);
 double energy(std::vector<Particle>&); 
@@ -58,3 +60,6 @@ void adapt_h(size_t, double, std::vector<Particle>&, Kernel&);
 //rotor and divergence of velocity's field (-||-)
 double  divVel(size_t, std::vector<Particle>&, Kernel&);
 vec3	rotVel(size_t, std::vector<Particle>&, Kernel&);
+
+//Lennard_Johns potencial field
+double U_lj(vec3, vec3);

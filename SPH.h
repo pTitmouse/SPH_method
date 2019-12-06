@@ -7,7 +7,7 @@ class Kernel
 {
 public:
 	size_t D;
-	size_t C = 0;
+	double C = 0;
 	
 	Kernel(size_t);
 
