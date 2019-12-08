@@ -108,6 +108,7 @@ class MainWindow(QMainWindow):
         self._recents_menu.setEnabled(len(self._get_recents()))
 
     def _set_recents_menu(self):
+        self._recents_menu.clear()
         recents = self._get_recents()
         for recent_path, is_valid in recents:
             name = recent_path if len(recent_path) <= MAX_RECENT_LENGTH else f'...{recent_path[-MAX_RECENT_LENGTH:]}'
