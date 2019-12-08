@@ -18,8 +18,10 @@ public:
 	vec3 pos; //Position radius-vector
 	vec3 vel; //Velosity vector
 	vec3 ax; //Axeleration vector
+	double energy;
 
-	double h = 10; //Smooth radius
+	
+	double h = 3; //Smooth radius
 	
 	double get_mass();
 	double get_rad();
@@ -63,3 +65,19 @@ vec3	rotVel(size_t, std::vector<Particle>&, Kernel&);
 
 //Lennard_Johns potencial field
 double U_lj(vec3, vec3);
+
+
+//Functor to find neighbours for the particle
+class Neighbour
+{ 
+public:
+	std::vector<std::vector<std::vector<size_t>>> web;
+
+	Neighbour(size_t);
+
+	void init(std::vector<Particle>&);
+
+	//Returns vector with neighbours' numbers
+	std::vector<size_t> operator()(Particle&);
+	
+};

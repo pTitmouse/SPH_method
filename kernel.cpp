@@ -15,49 +15,70 @@
 int main()
 {
 
+
+	
 	const int N = 100;
 	double dt = 0.01;
 	
-	double t = 10;
+	double t = 1;
 
 	Kernel kernel(2);
 	std::vector<Particle> particle(N);
-	particle[0].set_pos(0, 0, 0);
-	particle[1].set_pos(1, 0, 0);
-	double x = 0;
-	double y = 0;
 
+	double x = 45;
+	double y = 45;
+
+	size_t c = 0;
 	for (size_t i = 0; i < particle.size(); ++i)
 	{
-		if (i % 9 == 1 && i != 0)
-		{
-			x += 1;
-			y = 0;
+
+		if (i % 9 == 0 && i != 0)
+		{	
+			if (c % 2 == 0)
+			{
+				x = 45; 
+			}
+			else
+				x = -0.5 + 45;
+			y += 0.866;
+			++c;
 		}
 		particle[i].set_pos(x, y, 0);
-		y += 1;
-	}
+		x += 1;
 
-	std::ofstream file("data_2");
+		system("cls");
+		std::cout << "Getenrating particles: " << i << "/" << N <<std::endl;
+	}
+	
+
+
+
+	std::ofstream file("data_7");
+	//std::ofstream energy("data_6_en");
 
 	
 
 	size_t i = 0;
+	//double energy = 0;
 	while (i < t / dt)
 	{
 
-		eiler_scheme(particle, kernel, dt, i);
+		advanced_scheme(particle, kernel, dt, i);
+
+
 		system("cls");
 		std::cout << "Progress:" << i * dt * 100 / t << " % "<<std::endl
 				  << "interior time = " << i*dt << " s";
-		++i;
+		
 
 		for (auto& p : particle)
 			file << p.pos.x << " " << p.pos.y << " " << p.pos.z << " ";
 		file << std::endl;
 
+		++i;
 	}
-	
+
+	file.close();
 
 }
 

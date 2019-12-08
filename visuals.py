@@ -4,25 +4,25 @@ import numpy as np
 # Create figure
 fig = go.Figure()
 
-data = open('data_2', 'r')
+data = open('data_6', 'r')
 X = []
 Y = []
 c = 0
 for line in data:
-    if(c < 1000 and c % 10 == 0):
+    if(c % 9 == 0):
         X.append([ line.split()[a] for a in range(0, len(line.split()), 3)])
         Y.append([ line.split()[a+1] for a in range(0, len(line.split()), 3)])
     c+=1
-
+print (c)
 for x in X:
-    x.append(-10)
-    x.append(22)
+    x.append(-5)
+    x.append(15)
 
 for y in Y:
-    y.append(-10)
-    y.append(22)
+    y.append(-5)
+    y.append(15)
 
-e_num = 99
+e_num = len(X)
 # Add traces, one for each slider step
 for epoch in np.arange(e_num):
     fig.add_trace(
