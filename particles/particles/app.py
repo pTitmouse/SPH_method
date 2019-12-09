@@ -129,7 +129,7 @@ class MainWindow(QMainWindow):
         path = filename[0]
         if path:
             self._load_data_file(path)
-        self._add_path_to_recents(path)
+            self._add_path_to_recents(path)
 
     def _load_sample(self):
         self._load_data_file(SAMPLE_DATA_FILE)
